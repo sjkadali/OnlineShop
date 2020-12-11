@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import{ Products, Navbar}  from './components';
 
 const App = () => {
     return (
         <div>
-            online-shop
+            <Navbar />
+            <Products />
         </div>
     )
 }
