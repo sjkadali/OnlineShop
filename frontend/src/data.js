@@ -1,6 +1,7 @@
 export default {
     products:[
-        {
+        {   
+            _id: 1,
             name: 'Slim Shirt',
             category: 'Shirts',
             image: '/images/VH-slim-shirt.jpg',
@@ -9,7 +10,8 @@ export default {
             rating: 5,
             numReviews: 30
         },
-        {
+        {   
+            _id: '2',
             name: 'Classic Fit Shirt',
             category: 'Shirts',
             image: '/images/classic-fit-vh.jpg',
@@ -18,7 +20,8 @@ export default {
             rating: 4,
             numReviews: 30
         },
-        {
+        {   
+            _id: '3',
             name: 'Comfort Fit Shirt',
             category: 'Shirts',
             image: '/images/comfortfit-vh.jpg',
@@ -27,7 +30,8 @@ export default {
             rating: 5,
             numReviews: 30
         },
-        {
+        {   
+            _id: '4',
             name: 'Slim Shirt',
             category: 'Pants',
             image: '/images/FlexStPants-vh.jpg',
@@ -36,7 +40,8 @@ export default {
             rating: 5,
             numReviews: 30
         },
-        {
+        {   
+            _id: '5',
             name: 'Classic Fit Shirt',
             category: 'Shirts',
             image: '/images/classic-fit-vh.jpg',
