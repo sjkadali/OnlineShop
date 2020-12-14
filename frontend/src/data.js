@@ -1,7 +1,7 @@
-export default {
+export default data = {
     products:[
         {   
-            _id: 1,
+            _id: '1',
             name: 'Slim Shirt',
             category: 'Shirts',
             image: '/images/VH-slim-shirt.jpg',
