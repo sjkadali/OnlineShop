@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 function HomeScreen(props) {
     return <ul className="products">
     {
-      data.products.map(product => 
-        <li>
+      data.products.map((product) => 
+        <li key={product._id}>
           <div className="product">
             <Link to={'/product/' + product._id}>
                 <img className="product-image" src={product.image} alt="product" />
