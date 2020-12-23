@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { listProducts } from '../actions/productActions';
 
-function HomeScreen(props) {
+function HomeScreen() {
 
-  const [products, setProducts] = useState([]);
-
+  const productList = useSelector(state => state.productList, shallowEqual);
+  const { products, loading, error } = productList;
+ const dispatch = useDispatch();
   useEffect(() => {
-    const fetchData = async () => {
-      const {data} = await axios.get("/api/products");
-      setProducts(data);
-    }
-    fetchData();
+    
+    dispatch(listProducts());
     return () => {
-      
-    }
+
+    };
   }, [])
-    return <ul className="products">
+    return (  
+    loading? <div>Loading .....</div>:
+    error? <div> {error} </div>:    
+    <ul className="products">
     {
-      products.map((product) => 
+      products && products.map((product) => 
         <li key={product._id}>
           <div className="product">
             <Link to={'/product/' + product._id}>
@@ -35,5 +37,6 @@ function HomeScreen(props) {
         )
       }                        
   </ul>
+    )
 }
 export default HomeScreen;
