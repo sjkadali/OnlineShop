@@ -8,7 +8,8 @@ export default {
             price: 34.99,
             brand: 'Van Heusen',
             rating: 5,
-            numReviews: 30
+            numReviews: 30,
+            qtyInStock: 6
         },
         {   
             _id: '2',
@@ -18,7 +19,8 @@ export default {
             price: 33.99,
             brand: 'Van Heusen',
             rating: 4,
-            numReviews: 30
+            numReviews: 30,
+            qtyInStock: 5
         },
         {   
             _id: '3',
@@ -28,7 +30,8 @@ export default {
             price: 30.99,
             brand: 'Van Heusen',
             rating: 5,
-            numReviews: 30
+            numReviews: 30,
+            qtyInStock: 5
         },
         {   
             _id: '4',
@@ -38,7 +41,8 @@ export default {
             price: 34.99,
             brand: 'Van Heusen',
             rating: 5,
-            numReviews: 30
+            numReviews: 30,
+            qtyInStock: 6
         },
         {   
             _id: '5',
@@ -48,7 +52,8 @@ export default {
             price: 33.99,
             brand: 'Van Heusen',
             rating: 5,
-            numReviews: 30
+            numReviews: 30,
+            qtyInStock: 0
         },
 ]
 }
