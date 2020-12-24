@@ -8,8 +8,7 @@ function HomeScreen() {
   const productList = useSelector(state => state.productList, shallowEqual);
   const { products, loading, error } = productList;
  const dispatch = useDispatch();
-  useEffect(() => {
-    
+  useEffect(() => {    
     dispatch(listProducts());
     return () => {
 
