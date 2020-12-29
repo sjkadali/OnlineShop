@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { addToCart } from '../actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function CartScreen(props) {
 
@@ -36,11 +37,15 @@ function CartScreen(props) {
                     </div>
                     : 
                     cartItems.map( item => 
-                        <div>
-                            <img src={item.image} alt="product" />
+                       <li> 
+                            <div className="cart-image">
+                                <img src={item.image} alt="product" />
+                            </div>
                             <div className="cart-name">
                                 <div>
-                                    {item.name}
+                                    <Link to={"/product/" +item.product }>
+                                        {item.name}
+                                    </Link>
                                 </div>
                                 <div>
                                     Qty:
@@ -50,11 +55,12 @@ function CartScreen(props) {
                                         <option value="3">3</option>
                                     </select>
                                 </div>
+                                </div>
+                                <div>                   <div>
+                                    {item.price}
+                                </div>
                             </div>
-                            <div>
-                               {item.price} 
-                            </div>
-                        </div>
+                        </li>
                     )
                 }
             </ul>
