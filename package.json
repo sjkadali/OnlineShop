@@ -17,13 +17,16 @@
   },
   "homepage": "https://github.com/sjkadali/online-shop#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@angular-devkit/schematics": "^11.0.5",
+    "express": "^4.17.1",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
     "nodemon": "^2.0.6"
   }
 }
