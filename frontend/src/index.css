@@ -7,6 +7,12 @@ body{
   height: 100vh;
   margin: 0;
 }
+button{
+  font-size: 1.6rem;
+}
+.full-width{
+  width: 100%;
+}
 #root{
   height: 100%;
 }
