@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 import ProductScreen from './screens/ProductScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -7,9 +7,11 @@ import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import './App.css';
+import { signout } from './actions/userActions';
 
 function App() {
-
+  const cart = useSelector((state) => state.cart);
+  const {cartItems} = cart;
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
   console.log(userSignin, userInfo);
@@ -18,6 +20,10 @@ function App() {
   }
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
+  }
+  const dispatch = useDispatch();
+  const signoutHandler = () => {
+    dispatch(signout());
   }
   return (
     <div className="grid-container">
@@ -29,13 +35,29 @@ function App() {
                     <Link to="/">Online-Shop</Link>
                 </div>
                 <div className="header-links">
-                    <a href="cart.html">Cart</a>
+                <Link to="/cart">
+              Cart
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+            </Link>
                     {
-                        userInfo ? <Link to="/profile">{userInfo.name}</Link>:
+                      userInfo ? (
+                      <div className="dropdown">
+                        <Link to="#">
+                          {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+                        </Link>
+                        <ul className="dropdown-content">
+                        <Link to="#signout" onClick={signoutHandler}>
+                          Sign Out
+                        </Link>
+                        </ul>                        
+                      </div>
+                      ) : (
                     <Link to="/signin">
                         Sign In
                     </Link>
-                    }
+                      )}
                 </div>
             </header>            
             <aside className="sidebar">
