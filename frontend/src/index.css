@@ -7,11 +7,36 @@ body{
   height: 100vh;
   margin: 0;
 }
-button{
+input,
+select,
+textarea,
+button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem #a4a4a4 solid;
   font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.full-width{
+button {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+input:hover,
+select:hover,
+textarea:hover,
+button:hover {
+  border: 0.1rem #404040 solid;
+}
+button.primary {
+  background-color: #f0c040;
+}
+button.block {
   width: 100%;
+}
+button.small {
+  font-size: 1.2rem;
 }
 #root{
   height: 100%;
@@ -286,34 +311,19 @@ text-align: center;
   text-align: right;
 }
 
-/* forms */
-.form{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+/* Form */
+.form {
+  max-width: 40rem;
+  margin: 0 auto;
 }
-.form-container{
+.form > div {
   display: flex;
   flex-direction: column;
-  width: 32rem;
-  padding: 2rem;
-  border: .1rem #c0c0c0 solid;
-  border-radius: .5rem;
-  list-style-type: none;
+  margin: 1rem;
 }
-.form-container li{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+.form label {
+  margin: 1rem 0;
 }
-input{
-  padding: 1rem;
-  border: .1rem #c0c0c0 solid;
-  border-radius: .5rem;
-}
-
 /* Dropdown */
 .dropdown{
   display: inline-block;
