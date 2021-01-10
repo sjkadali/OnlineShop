@@ -22,8 +22,8 @@ function App() {
     document.querySelector(".sidebar").classList.remove("open");
   }
   const dispatch = useDispatch();
-  const signoutHandler = () => {
-    dispatch(signout());
+  const signoutHandler = (e) => {    
+    dispatch(signout());    
   }
   return (
     <div className="grid-container">

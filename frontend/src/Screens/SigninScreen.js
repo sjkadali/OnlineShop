@@ -28,7 +28,7 @@ function SigninScreen(props) {
         dispatch(signin(email, password));
     }
 
-    return <div className="form">
+    return <div>
         <form className="form" onSubmit={submitHandler}>
                 <div>
                     <h2>Sign-In</h2>
