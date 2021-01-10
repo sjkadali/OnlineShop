@@ -20,15 +20,16 @@ function RegisterScreen(props) {
     useEffect(() => {
         if(userInfo) {
             props.history.push(redirect);
-        }
-        return () => {
-            //
-        };
-    }, [userInfo]);
+        }        
+    }, [props.history, redirect, userInfo]);
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(register(name, email, password));
+        if(password !== rePassword) {
+            alert('Password and Re-Enter Password does not match');
+        } else {
+            dispatch(register(name, email, password));
+        }
     }
 
     return <div>
@@ -71,7 +72,7 @@ function RegisterScreen(props) {
                 </div>
                 <div>
                     Already have an account?                
-                    <Link to="/signin" className="button secondary text-center">Sign-in</Link>
+                    <Link to={`/signin?redirect=${redirect}`} className="button secondary text-center">Sign-in</Link>
                 </div>            
         </form>
     </div>

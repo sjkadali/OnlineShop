@@ -56,7 +56,7 @@ function SigninScreen(props) {
                     New to online-shop?
                 </div>
                 <div>
-                    <Link to="/register" className="button secondary text-center">Register</Link>
+                    <Link to={`/register?redirect=${redirect}`} className="button secondary text-center">Register</Link>
                 </div>            
         </form>
     </div>
