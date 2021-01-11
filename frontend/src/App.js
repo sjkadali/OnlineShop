@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ShippingAddressScreen from './screens/ShippingAdressScreen';
 import './App.css';
 import { signout } from './actions/userActions';
 
@@ -76,6 +77,7 @@ function App() {
                 <div className="content">
                   <Route path="/register" component={RegisterScreen} />
                   <Route path="/signin" component={SigninScreen} />
+                  <Route path="/shipping" component={ShippingAddressScreen} />
                   <Route path="/product/:id" component={ProductScreen} />
                   <Route path="/cart/:id?" component={CartScreen} />
                   <Route path="/" exact={true} component={HomeScreen} />  
