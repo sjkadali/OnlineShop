@@ -16,6 +16,7 @@ const signin = (email, password) => async (dispatch) => {
 const signout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
     dispatch({ type: USER_SIGNOUT });
 };
 
@@ -25,7 +26,6 @@ const register = (name, email, password) => async (dispatch) => {
         const {data} = await Axios.post("/api/users/register", {name, email, password});
         dispatch({type: USER_REGISTER_SUCCESS, payload: data})
         localStorage.setItem('userInfo', JSON.stringify(data));
-        console.log(" data , userInfo: "+ data);
     } catch(error) {
         dispatch({ type: USER_REGISTER_FAIL, payload: console.error.message});
     }
