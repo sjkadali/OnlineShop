@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute.js';
 import productRouter from './routes/productRouter.js';
+import orderRouter from './routes/orderRouter';
 
 dotenv.config();
 const mongodbUrl = config.MONGODB_URL;
@@ -30,7 +31,7 @@ app.use(bodyParser.json());
   
 app.use("/api/users", userRoute);
 app.use("/api/products", productRouter);
-
+app.use("/api/orders", orderRouter);
 app.use((err, req, next) => {
   res.status(500).send({message: err.message});
 });
