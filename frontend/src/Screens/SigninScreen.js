@@ -10,7 +10,6 @@ function SigninScreen(props) {
     const [password, setPassword] = useState('');
     const userSignin = useSelector(state => state.userSignin );
     const { loading, userInfo, error} = userSignin;
-    console.log("SigninScreen:    loading : "+ userSignin, userInfo + " ***********");
 
     const dispatch = useDispatch();
     const redirect = props.location.search ? props.location.search.split("=")[1] : '/';

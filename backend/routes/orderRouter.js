@@ -20,10 +20,17 @@ orderRouter.post(
                 shippingPrice: req.body.shippingPrice,
                 tax: req.body.tax,
                 totalPrice: req.body.totalPrice,
+                isPaid: true,
+                paidAt: Date(),
                 user: req.user._id
             });
             const createdOrder = await order.save();
-            res.status(201).send({message: 'New Order Created', order: createdOrder });
+            if (createdOrder) {
+                res.status(201).send({message: 'New Order Created', order: createdOrder });
+
+            } else {
+                res.status(401).send({msg: 'Order Could n0t be saved'});
+            }            
         }
     })
 );

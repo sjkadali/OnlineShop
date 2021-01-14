@@ -11,7 +11,6 @@ router.post('/signin',
     expressAsyncHandler(async (req, res) => {
         const signinUser = await User.findOne({email: req.body.email});
         if(signinUser) {
-            console.log("siginUser: " + signinUser + " signedin!");
            if(bcrypt.compareSync(req.body.password, signinUser.password)) {
             res.send({
                 _id: signinUser.id,
