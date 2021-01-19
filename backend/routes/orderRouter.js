@@ -5,6 +5,12 @@ import { isAuth } from '../util.js';
 
 const orderRouter = express.Router();
 
+orderRouter.get('/user', isAuth, expressAsyncHandler( async (req, res) => {
+    const orders = await Order.find({user: req.user._id});
+    res.send(orders);
+})
+);
+
 orderRouter.post(
     '/',
     isAuth,
