@@ -15,6 +15,8 @@ import OrderScreen from './screens/OrderScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
+import ProductListScreen from './screens/ProductListScreen';
+import AdminRoute from './components/AdminRoute';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -73,6 +75,27 @@ function App() {
                         Sign In
                     </Link>
                       )}
+                      {userInfo && userInfo.isAdmin && (
+                        <div className="dropdown">
+                          <Link to="#admin">
+                            Admin <i className="fa fa-caret-down"></i>
+                          </Link>
+                          <ul className="dropdown-content">
+                            <li>
+                              <Link to="/dashboard">Dashboard</Link>
+                            </li>
+                            <li>
+                              <Link to="/productlist">Products</Link>
+                            </li>
+                            <li>
+                              <Link to="/orderlist">Orders</Link>
+                            </li>
+                            <li>
+                              <Link to="/userlist">Users</Link>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
                 </div>
             </header>            
             <aside className="sidebar">
@@ -97,7 +120,8 @@ function App() {
                   <Route path="/order/:id" component={OrderScreen} />
                   <Route path="/orderhistory" component={OrderHistoryScreen} />
                   <PrivateRoute path="/profile" component={ProfileScreen} />
-                  <Route path="/product/:id" component={ProductScreen} />
+                  <AdminRoute path="/productlist" component={ProductListScreen} />
+                  <Route path="/product/:id" component={ProductScreen} exact="true" />
                   <Route path="/cart/:id?" component={CartScreen} />
                   <Route path="/" exact={true} component={HomeScreen} />  
                 </div>

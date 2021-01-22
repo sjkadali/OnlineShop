@@ -2,6 +2,7 @@ import express from 'express';
 import data from '../data.js';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
+import { isAuth, isAdmin } from '../util.js';
 
 const productRouter = express.Router();
 
@@ -24,6 +25,23 @@ productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     } else {
         res.status(404).send({message: 'Product Not Found'});
     }
+})
+);
+
+productRouter.post('/', isAuth, isAdmin, expressAsyncHandler( async (req, res) => {
+    const product = new Product({
+        name: 'Product1',
+        image: '/image/comfortfit-vh.jpg',
+        price: 23.99,
+        category: 'shirt',
+        brand: 'Van Heusen',
+        qtyInStock: 2,
+        rating: 0,
+        numReviews: 0,
+        description: 'Van Heusen Comfort fit shirt',
+    });
+    const createdProduct = await product.save();
+    res.send({message: 'Product Created', product: createdProduct });
 })
 );
 
