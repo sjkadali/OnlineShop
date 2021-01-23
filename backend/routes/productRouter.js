@@ -30,8 +30,8 @@ productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
 
 productRouter.post('/', isAuth, isAdmin, expressAsyncHandler( async (req, res) => {
     const product = new Product({
-        name: 'Product1',
-        image: '/image/comfortfit-vh.jpg',
+        name: 'Product1' + Date.now(),
+        image: '/images/comfortfit-vh.jpg',
         price: 23.99,
         category: 'shirt',
         brand: 'Van Heusen',
@@ -42,6 +42,27 @@ productRouter.post('/', isAuth, isAdmin, expressAsyncHandler( async (req, res) =
     });
     const createdProduct = await product.save();
     res.send({message: 'Product Created', product: createdProduct });
+})
+);
+
+productRouter.put('/:id', isAuth, isAdmin, expressAsyncHandler( async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+        product.name = req.body.name;
+        product.price = req.body.price;
+        product.image = req.body.image;
+        product.category = req.body.category;
+        product.brand = req.body.brand;
+        product.qtyInStock = req.body.qtyInStock;
+        product.description = req.body.description;
+        
+        const updatedProduct = await product.save();
+        res.send({message: 'Product Updated', product: updatedProduct });
+
+    } else {
+        res.status(404).send({message: 'Product Not Found'});
+    }
 })
 );
 

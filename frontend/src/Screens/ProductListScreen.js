@@ -22,7 +22,7 @@ export default function ProductListScreen(props) {
     useEffect(() => {
         if (successCreate) {
             dispatch({type: PRODUCT_CREATE_RESET});
-            props.history.push(`/product/${createdProduct._id}/edit`);
+            props.history.push('/productlist');
         }    
         dispatch(listProducts());        
       }, [createdProduct, dispatch, props.history, successCreate]);
