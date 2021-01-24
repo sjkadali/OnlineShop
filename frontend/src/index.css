@@ -68,6 +68,7 @@ button.small {
 }
 .header-links a{
   color: #ffffff;
+  padding: 1rem;
 }
 .header-links a:hover{
   color: #e05e07;
