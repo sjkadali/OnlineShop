@@ -18,13 +18,14 @@ import PrivateRoute from './components/PrivateRoute';
 import ProductListScreen from './screens/ProductListScreen';
 import AdminRoute from './components/AdminRoute';
 import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
   const {cartItems} = cart;
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
-  console.log(userSignin, userInfo);
+  
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
   }
@@ -122,6 +123,7 @@ function App() {
                   <Route path="/orderhistory" component={OrderHistoryScreen} />
                   <PrivateRoute path="/profile" component={ProfileScreen} />
                   <AdminRoute path="/productlist" component={ProductListScreen} />
+                  <AdminRoute path="/orderlist" component={OrderListScreen} />
                   <Route path="/product/:id" component={ProductScreen} exact={true} />
                   <Route path="/product/:id/edit" component={ProductEditScreen} exact={true} />
                   <Route path="/cart/:id?" component={CartScreen} />

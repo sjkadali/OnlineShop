@@ -10,7 +10,6 @@ export default function ProfileScreen(props) {
 
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;    
-    //console.log("userInfo: " + userInfo, userInfo._id);
     
     const [name, setName] = useState(userInfo.name || '');
     const [email, setEmail] = useState(userInfo.email || '');
