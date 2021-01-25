@@ -15,7 +15,7 @@ export default function OrderScreen(props) {
     const { order, loading, error} = orderDetails;
     
     const userSignin = useSelector((state) => state.userSignin);
-    const { userInfo } = userSignin.userInfo;
+    const { userInfo } = userSignin;
 
     const orderPay = useSelector(state => state.orderPay);
     const { loading: loadingPay, error: errorPay, success: successPay} = orderPay;
@@ -180,7 +180,9 @@ export default function OrderScreen(props) {
                     )}
                     {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                         <li>
-                            <button type="button"  onClick={deliverHandler}>
+                            { loadingDeliver && <LoadingBox></LoadingBox>}
+                            { errorDeliver && <MessageBox variant="danger">{errorDeliver}</MessageBox>}
+                            <button type="button" className="primary block" onClick={deliverHandler}>
                                 Deliver Order
                             </button>
                         </li>
