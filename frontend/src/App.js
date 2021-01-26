@@ -7,7 +7,7 @@ import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
-import './App.css';
+//import './App.css';
 import { signout } from './actions/userActions';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
@@ -19,6 +19,8 @@ import ProductListScreen from './screens/ProductListScreen';
 import AdminRoute from './components/AdminRoute';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -45,13 +47,18 @@ function App() {
                     </button>
                     <Link to="/">Online-Shop</Link>
                 </div>
+                <div>
+                  <Route 
+                    render={({history}) => <SearchBox history={history}></SearchBox>}
+                  />
+                </div>
                 <div className="header-links">
-                <Link to="/cart">
-              Cart
-              {cartItems.length > 0 && (
-                <span className="badge">{cartItems.length}</span>
-              )}
-            </Link>
+                  <Link to="/cart">
+                    Cart
+                    {cartItems.length > 0 && (
+                      <span className="badge">{cartItems.length}</span>
+                    )}
+                  </Link>
                     {
                       userInfo ? (
                       <div className="dropdown">
@@ -121,6 +128,7 @@ function App() {
                   <Route path="/placeorder" component={PlaceOrderScreen} />
                   <Route path="/order/:id" component={OrderScreen} />
                   <Route path="/orderhistory" component={OrderHistoryScreen} />
+                  <Route path="/search/name/:name?" component={SearchScreen} exact={true} /> 
                   <PrivateRoute path="/profile" component={ProfileScreen} />
                   <AdminRoute path="/productlist" component={ProductListScreen} />
                   <AdminRoute path="/orderlist" component={OrderListScreen} />

@@ -3,17 +3,8 @@ html{
   box-sizing: border-box;
 }
 body{
-  font: 1.6rem Helvetica;
-  height: 100vh;
   margin: 0;
-}
-input,
-select,
-textarea,
-button {
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 0.1rem #a4a4a4 solid;
+  height: 100vh;
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -113,6 +104,7 @@ button.small {
 }
 .main{
   grid-area: main;
+  padding: 1rem;
 }
 .footer{
   grid-area: footer;
@@ -137,44 +129,6 @@ li {
   margin-top: 1rem;
 }
 
-/* Home Screen */
-.products {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.products li{
-  flex: 0 1 34rem;
-  margin: 1 rem;
-  height: 35rem;
-  border-bottom: 0.1rem #c0c0c0 solid;
-}
-.product{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-.product-name{
-  font-size: 2rem;
-  font-weight: bold;
-}
-.product-brand{
-  font-size: 1.2rem;
-  color: #808080;
-}
-.product-price{
-  font-size: 2rem;
-  font-weight: bold;
-}
-.product-image{
-  max-width: 24rem;
-  max-height: 34rem;
-}
-.product-ratings{
-  margin-bottom: 2rem;
-}
 /* Sidebar */
 .brand-button{
   font-size: 3rem;
@@ -441,4 +395,21 @@ img.large {
 }
 .table button {
   margin: 0 0.2rem;
+}
+
+/* Carousel */
+.carousel .slide img {
+  max-width: 30rem;
+}
+
+/* Search */
+.search button {
+  border-radius: 0 0.5rem 0.5rem  0;
+  border-right: none;
+  margin-right: 0.5rem;
+}
+.search input {
+  border-radius: 0.5rem 0 0 0.5rem;
+  border-right: none;
+  margin-left: 0.5rem;
 }
