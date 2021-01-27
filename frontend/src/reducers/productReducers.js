@@ -2,9 +2,9 @@ import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
     PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCESS, PRODUCT_DETAILS_FAIL, 
     PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_FAIL, 
     PRODUCT_CREATE_RESET, PRODUCT_UPDATE_RESET,
-    PRODUCT_UPDATE_SUCCESS, PRODUCT_UPDATE_REQUEST,PRODUCT_UPDATE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_DELETE_RESET} from "../constants/productConstants";
+    PRODUCT_UPDATE_SUCCESS, PRODUCT_UPDATE_REQUEST,PRODUCT_UPDATE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_DELETE_RESET, PRODUCT_CATEGORY_LIST_REQUEST, PRODUCT_CATEGORY_LIST_SUCCESS, PRODUCT_CATEGORY_LIST_FAIL} from "../constants/productConstants";
 
-function productListReducer(state = {products: [] }, action) {
+export const productListReducer = (state = {products: [] }, action) => {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
             return { loading: true };
@@ -18,7 +18,21 @@ function productListReducer(state = {products: [] }, action) {
      }
 }
 
-function productDetailsReducer(state = {product: {} }, action) {
+export const productCategoryListReducer = (state = {products: [] }, action) => {
+    switch (action.type) {
+        case PRODUCT_CATEGORY_LIST_REQUEST:
+            return { loading: true };
+        case PRODUCT_CATEGORY_LIST_SUCCESS:
+            console.log("success");
+            return { loading: false, categories: action.payload };
+        case PRODUCT_CATEGORY_LIST_FAIL:
+            return { loading: false, error: action.payload };
+        default: 
+            return state;
+     }
+}
+
+export const productDetailsReducer = (state = {product: {} }, action) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:
             return { loading: true };
@@ -76,4 +90,3 @@ export const productDeleteReducer = (state ={}, action) => {
     }
 };
 
-export { productListReducer, productDetailsReducer};

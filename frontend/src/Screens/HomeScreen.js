@@ -8,7 +8,7 @@ import Product from '../components/Product';
 
 function HomeScreen() {
 
-  const productList = useSelector(state => state.productList, shallowEqual);
+  const productList = useSelector(state => state.productList);
   const { products, loading, error } = productList;
  const dispatch = useDispatch();
   useEffect(() => {    
