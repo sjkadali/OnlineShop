@@ -6,11 +6,17 @@ import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
 
 import Axios from "axios";
 
-export const listProducts = ({name='', category= ''}) =>  async (dispatch) => {
+export const listProducts = ({
+    name='',
+    category= '',
+    min= 0,
+    max= 0,
+    rating = 0,
+    order =''
+}) =>  async (dispatch) => {
     try{
         dispatch({type:PRODUCT_LIST_REQUEST});
-        const { data } = await Axios.get(`/api/products?name=${name}&category=${category}`);
-        console.log("data: "+data);
+        const { data } = await Axios.get(`/api/products?name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`);
         dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
     }
     catch(error){
@@ -22,7 +28,6 @@ export const listProductCategories = () =>  async (dispatch) => {
     try{
         dispatch({type:PRODUCT_CATEGORY_LIST_REQUEST});
         const { data } = await Axios.get(`/api/products/categories`);
-        console.log("data: "+data);
         dispatch({type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: data});
     }
     catch(error){
