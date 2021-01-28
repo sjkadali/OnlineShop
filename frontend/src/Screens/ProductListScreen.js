@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProduct, listProducts, deleteProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_RESET } from '../constants/productConstants';
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants';
 
 export default function ProductListScreen(props) {
-    const productList = useSelector(state=> state.productList , shallowEqual);
+    const productList = useSelector(state=> state.productList);
     console.log("productList: "+productList);
     const { loading, error, products} = productList;
     console.log("loading , error, products: "+loading, error, products);
@@ -34,7 +34,7 @@ export default function ProductListScreen(props) {
         if (successDelete) {
             dispatch({type: PRODUCT_DELETE_RESET})
         }    
-        dispatch(listProducts());        
+        dispatch(listProducts({}));        
       }, [createdProduct, dispatch, props.history, successCreate, productDelete]);
 
     const deleteHandler = (product) => {
