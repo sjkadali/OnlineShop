@@ -16,6 +16,8 @@ import ProfileScreen from './screens/ProfileScreen';
 import PrivateRoute from './components/PrivateRoute';
 import ProductListScreen from './screens/ProductListScreen';
 import AdminRoute from './components/AdminRoute';
+import SellerRoute from './components/SellerRoute';
+import SellerScreen from './screens/SellerScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import SearchBox from './components/SearchBox';
@@ -99,6 +101,22 @@ function App() {
                         Sign In
                     </Link>
                       )}
+                      {userInfo && userInfo.isSeller && (
+                        <div className="dropdown">
+                          <Link to="#admin">
+                            Seller <i className="fa fa-caret-down"></i>
+                          </Link>
+                          <ul className="dropdown-content">
+                            <li>
+                              <Link to="/productlist/seller">Products</Link>
+                            </li>
+                            <li>
+                              <Link to="/orderlist/seller">Orders</Link>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+
                       {userInfo && userInfo.isAdmin && (
                         <div className="dropdown">
                           <Link to="#admin">
@@ -155,6 +173,7 @@ function App() {
 
             <main className="main">
                 <div className="content">
+                  <Route path="/seller/:id" component={SellerScreen}></Route>
                   <Route path="/register" component={RegisterScreen} />
                   <Route path="/signin" component={SigninScreen} />
                   <Route path="/shipping" component={ShippingAddressScreen} />
@@ -169,6 +188,14 @@ function App() {
                   <PrivateRoute path="/profile" component={ProfileScreen} />
                   <AdminRoute path="/productlist" component={ProductListScreen} />
                   <AdminRoute path="/orderlist" component={OrderListScreen} />
+                  <SellerRoute
+                      path="/productlist/seller"
+                      component={ProductListScreen}
+                  ></SellerRoute>
+                  <SellerRoute
+                      path="/orderlist/seller"
+                      component={OrderListScreen}
+                  ></SellerRoute>
                   <Route path="/product/:id" component={ProductScreen} exact={true} />
                   <Route path="/product/:id/edit" component={ProductEditScreen} exact={true} />
                   <Route path="/cart/:id?" component={CartScreen} />
