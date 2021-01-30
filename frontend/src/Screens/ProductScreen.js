@@ -111,7 +111,7 @@ function ProductScreen(props) {
                         <div className="row">
                         <div>Status</div>
                         <div>
-                            {product.countInStock > 0 ? (
+                            {product.qtyInStock > 0 ? (
                             <span className="success">In Stock</span>
                             ) : (
                             <span className="danger">Unavailable</span>
@@ -119,7 +119,7 @@ function ProductScreen(props) {
                         </div>
                         </div>
                     </li>
-                    {product.countInStock > 0 && (
+                    {product.qtyInStock > 0 && (
                         <>
                         <li>
                             <div className="row">
@@ -129,7 +129,7 @@ function ProductScreen(props) {
                                 value={qty}
                                 onChange={(e) => setQty(e.target.value)}
                                 >
-                                {[...Array(product.countInStock).keys()].map(
+                                {[...Array(product.qtyInStock).keys()].map(
                                     (x) => (
                                     <option key={x + 1} value={x + 1}>
                                         {x + 1}
