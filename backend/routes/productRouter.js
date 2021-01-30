@@ -2,6 +2,7 @@ import express from 'express';
 import data from '../data.js';
 import Product from '../models/productModel.js';
 import expressAsyncHandler from 'express-async-handler';
+import User from '../models/userModel.js';
 import { isAuth, isAdmin } from '../util.js';
 
 const productRouter = express.Router();
@@ -9,12 +10,14 @@ const productRouter = express.Router();
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
     const name = req.query.name || '';
     const category = req.query.category || '';
+    const seller = req.query.seller || '';
     const min = req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
     const max = req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 0;
     const rating = req.query.rating && Number(req.query.rating) !== 0 ? Number(req.query.rating) : 0;
     const order = req.query.order || '';
     const nameFilter = name ?
         { name: { $regex: name , $options: 'i' } } : {} ;
+    const sellerFilter = seller ? { seller } : {};
     const categoryFilter = category ? { category } : {}; 
     const priceFilter = min && max ? { price: { $gte: min, $lte: max } } :  {};
     const ratingFilter = rating ? { rating : { $gte: rating} } : {};
@@ -27,13 +30,14 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
     const products = await Product.find({
         ...nameFilter,
         ...categoryFilter,
+        ...sellerFilter,
         ...priceFilter,
         ...ratingFilter
-    }).populate().sort(sortOrder);
+    }).populate('seller', 'seller.name seller.logo').sort(sortOrder);
     if (products) {
         res.send(products);
     } else {
-        res.status(404).send({message: 'No Procts Found'});
+        res.status(404).send({message: 'No Products Found'});
     }   
 })
 );
@@ -44,14 +48,29 @@ productRouter.get('/categories', expressAsyncHandler (async ( req, res) => {
 })
 );
 
-productRouter.get('/seed', expressAsyncHandler(async(req, res) => {
-    const createdProducts = await Product.insertMany(data.products);
-    res.send({createdProducts});
-})
-);
+productRouter.get(
+    '/seed',
+    expressAsyncHandler(async (req, res) => {
+      // await Product.remove({});
+      const seller = await User.findOne({ isSeller: true });
+      if (seller) {
+        const products = data.products.map((product) => ({
+          ...product,
+          seller: seller._id,
+        }));
+        const createdProducts = await Product.insertMany(products);
+        res.send({ createdProducts });
+      } else {
+        res
+          .status(500)
+          .send({ message: 'No seller found. first run /api/users/seed' });
+      }
+    })
+  );  
 
 productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('seller',
+    'seller.name seller.logo seller.rating seller.numReviews');
     if(product) {
         res.send(product);
     } else {
@@ -63,6 +82,7 @@ productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
 productRouter.post('/', isAuth, isAdmin, expressAsyncHandler( async (req, res) => {
     const product = new Product({
         name: 'Product1' + Date.now(),
+        seller: req.user._id,
         image: '/images/comfortfit-vh.jpg',
         price: 23.99,
         category: 'shirt',
@@ -106,6 +126,32 @@ productRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler ( async (req, 
     } else {
         res.status(404).send({ message: 'Product Not Found'});
     }    
+})
+);
+
+productRouter.post('/:id/reviews', isAuth, expressAsyncHandler( async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+        if(product.reviews.find((x) => x.name === req.user.name)) {
+            return res
+                .status(400)
+                .send({ message: 'You have already submitted a review'});
+        }
+        const review = {
+            name: req.user.name,
+            rating: Number(req.body.rating),
+            comment: req.body.comment
+        };
+        product.reviews.push(review);
+        product.numReviews = product.reviews.length;
+        product.rating = product.reviews.reduce((a, c) => c.rating + a, 0) / product.reviews.length;
+        const updatedProduct = await product.save();
+        res.status(201).send({message: 'Review Created', review: updatedProduct.reviews[ypdatedProduct.reviews.length-1],
+    });
+    } else {
+        res.status(404).send({message: 'Review Could not be Created'});
+    }
 })
 );
 

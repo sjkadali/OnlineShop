@@ -7,6 +7,14 @@ const data = {
             email: 'skadalikat@gmail.com',
             password: bcrypt.hashSync('1234', 8),
             isAdmin: true,
+            isSeller: true,
+            seller: {
+                name: 'PVH',
+                logo: '/images/pvh.png',
+                description: 'Best Seller',
+                rating: 5,
+                numReviews: 200
+            }
         },
         {
             name: 'sjk',
