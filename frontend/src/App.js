@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import ProductScreen from './screens/ProductScreen';
 import HomeScreen from './screens/HomeScreen';
 import CartScreen from './screens/CartScreen';
@@ -35,7 +35,8 @@ function App() {
 
   const dispatch = useDispatch();
   const signoutHandler = (e) => {    
-    dispatch(signout());    
+    dispatch(signout());
+    <Redirect to="/home" />   
   }
 
   const productCategoryList = useSelector((state) => state.productCategoryList);
