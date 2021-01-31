@@ -8,6 +8,8 @@ import { isAuth, isAdmin } from '../util.js';
 const productRouter = express.Router();
 
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
+    const pageSize = 3;
+    const page = Number(req.query.pageNumber) || 1;
     const name = req.query.name || '';
     const category = req.query.category || '';
     const seller = req.query.seller || '';
@@ -26,16 +28,25 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
         : order === 'highest' ? { price : -1 }
         : order === 'toprated' ? { rating : -1 }
         : { _id: -1 };
-
+    const count = await Product.countDocuments({
+        ...nameFilter,
+        ...categoryFilter,
+        ...sellerFilter,
+        ...priceFilter,
+        ...ratingFilter
+    });
     const products = await Product.find({
         ...nameFilter,
         ...categoryFilter,
         ...sellerFilter,
         ...priceFilter,
         ...ratingFilter
-    }).populate('seller', 'seller.name seller.logo').sort(sortOrder);
+    }).populate('seller', 'seller.name seller.logo')
+    .sort(sortOrder)
+    .skip(pageSize * (page-1))
+    .limit(pageSize);
     if (products) {
-        res.send(products);
+        res.send({products, page, pages: Math.ceil(count/pageSize) });
     } else {
         res.status(404).send({message: 'No Products Found'});
     }   

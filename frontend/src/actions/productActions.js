@@ -7,6 +7,7 @@ import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,
 import Axios from "axios";
 
 export const listProducts = ({
+    pageNumber = '',
     name='',
     category= '',
     seller= '',
@@ -17,11 +18,15 @@ export const listProducts = ({
 }) =>  async (dispatch) => {
     try{
         dispatch({type:PRODUCT_LIST_REQUEST});
-        const { data } = await Axios.get(`/api/products?seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`);
+        const { data } = await Axios.get(`/api/products?pageNumber=${pageNumber}&seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`);
         dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
     }
     catch(error){
-        dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
+        const message =
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: PRODUCT_LIST_FAIL, payload: message});
     }
 }
 
@@ -32,7 +37,11 @@ export const listProductCategories = () =>  async (dispatch) => {
         dispatch({type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: data});
     }
     catch(error){
-        dispatch({type: PRODUCT_CATEGORY_LIST_FAIL, payload: error.message});
+        const message =
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: PRODUCT_CATEGORY_LIST_FAIL, payload: message});
     }
 }
 
@@ -43,7 +52,11 @@ export const detailsProduct = (productId) => async (dispatch) => {
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: data});
     } 
     catch (error) {
-        dispatch({type: PRODUCT_DETAILS_FAIL, payload: error.message });
+        const message =
+        error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+        dispatch({type: PRODUCT_DETAILS_FAIL, payload: message });
     }
 }
 
