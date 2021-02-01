@@ -25,6 +25,8 @@ import SearchScreen from './screens/SearchScreen';
 import { listProductCategories } from './actions/productActions';
 import MessageBox from './components/MessageBox';
 import LoadingBox from './components/LoadingBox';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -49,7 +51,7 @@ function App() {
   console.log("productCategoryList, categories: "+ productCategoryList, categories);
   useEffect(() => {
     dispatch(listProductCategories());
-  }, [dispatch]);
+  }, [dispatch,  userInfo]);
 
   return (
     <div className="grid-container">
@@ -189,6 +191,8 @@ function App() {
                   <PrivateRoute path="/profile" component={ProfileScreen} />
                   <AdminRoute path="/productlist" component={ProductListScreen} exact={true} /> 
                   <AdminRoute path="/productlist/pageNumber/:pageNumber" exact={true} component={ProductListScreen} />
+                  <AdminRoute path="/userlist" component={UserListScreen} exact={true} />
+                  <AdminRoute path="/user/:id/edit" component={UserEditScreen} exact={true} /> 
                   <AdminRoute path="/orderlist" component={OrderListScreen} />
                   <SellerRoute
                       path="/productlist/seller"
