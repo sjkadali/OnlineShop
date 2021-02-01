@@ -6,7 +6,7 @@ import { isAuth, isAdmin } from '../util.js';
 const orderRouter = express.Router();
 
 orderRouter.get('/', isAuth, isAdmin, expressAsyncHandler ( async (req, res) => {
-    const orders = await Order.find({}).populate('user', 'name');
+    const orders = await Order.find({});
     res.send(orders);
 })
 );

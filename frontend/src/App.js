@@ -193,15 +193,15 @@ function App() {
                   <AdminRoute path="/productlist/pageNumber/:pageNumber" exact={true} component={ProductListScreen} />
                   <AdminRoute path="/userlist" component={UserListScreen} exact={true} />
                   <AdminRoute path="/user/:id/edit" component={UserEditScreen} exact={true} /> 
-                  <AdminRoute path="/orderlist" component={OrderListScreen} />
-                  <SellerRoute
+                  <AdminRoute path="/orderlist" component={OrderListScreen} exact={true} />
+                 {/*  <SellerRoute
                       path="/productlist/seller"
                       component={ProductListScreen}
                   ></SellerRoute>
                   <SellerRoute
                       path="/orderlist/seller"
                       component={OrderListScreen}
-                  ></SellerRoute>
+                  ></SellerRoute> */}
                   <Route path="/product/:id" component={ProductScreen} exact={true} />
                   <Route path="/product/:id/edit" component={ProductEditScreen} exact={true} />
                   <Route path="/cart/:id?" component={CartScreen} />
