@@ -10,10 +10,13 @@ function HomeScreen() {
 
   const productList = useSelector(state => state.productList);
   const { loading, error, products } = productList;
+
+  const userSignin = useSelector(state => state.userSignin);
+  const { userInfo } = userSignin;
  const dispatch = useDispatch();
   useEffect(() => {    
-    dispatch(listProducts({}));   
-  }, [dispatch]);
+    dispatch(listProducts({}));    
+  }, [dispatch, userInfo]);
     return (  
       <div>
           {loading ? (

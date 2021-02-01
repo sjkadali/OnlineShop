@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { register } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -12,23 +12,26 @@ function RegisterScreen(props) {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
 
-    const userRegister = useSelector(state => state.userRegister );
-    const { loading, userInfo, error} = userRegister;
- console.log("RegisterScreen:    loading : "+ userRegister, userInfo + " ***********");
+    const userRegister  = useSelector(state => state.userRegister );
+    const { loading, userInfo,success, error} = userRegister;
     const dispatch = useDispatch();
     const redirect = props.location.search ? props.location.search.split("=")[1] : '/';
     useEffect(() => {
-        if(userInfo) {
-            props.history.push(redirect);
-        }        
-    }, [props.history, redirect, userInfo]);
+        if (success || userInfo) {
+            window.alert('User is Registered');        
+            props.history.push("/signin");
+        } 
+        return () => {
+            //
+        };
+    }, [props.history, userInfo]);
 
     const submitHandler = (e) => {
         e.preventDefault();
         if(password !== rePassword) {
             alert('Password and Re-Enter Password does not match');
         } else {
-            dispatch(register(name, email, password));
+            dispatch(register(name, email, password));            
         }
     }
 
