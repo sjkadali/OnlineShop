@@ -44,12 +44,12 @@ export const userDetailsReducer = (state= {loading: true}, action) => {
     }
 };
 
-export const userUpdateProfileReducer = ( state ={}, action) => {
+export const userUpdateProfileReducer = ( state ={loading: true}, action) => {
     switch(action.type) {
         case USER_UPDATE_PROFILE_REQUEST:
             return { loading: true};
         case USER_UPDATE_PROFILE_SUCCESS:
-            return { loading: false, success: true};
+            return { loading: false, success: true, payload: action.payload};
         case USER_UPDATE_PROFILE_RESET:
             return {};
         case USER_UPDATE_PROFILE_FAIL:

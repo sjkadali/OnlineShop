@@ -7,19 +7,24 @@ import { listOrder } from '../actions/orderActions';
 export default function OrderHistoryScreen(props) {
     const orderList = useSelector((state) => state.orderList);
     const { loading, error, orders } = orderList;
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo } = userSignin;
+    if (!userInfo) {
+        props.history.push("/signin");
+    }    
+   
     const dispatch = useDispatch();
-    useEffect(() => {
+    useEffect(() => {            
         dispatch(listOrder());        
-        
     }, [dispatch]);
 
     return (
         <div>
             <h1>Order History </h1>
-            {loading ? <LoadingBox></LoadingBox>:
-            error? <MessageBox variant="danger">{error} </MessageBox>
-            :
-            (
+            {loading ? <LoadingBox></LoadingBox> :
+            error ? <MessageBox variant="danger">{error} </MessageBox>
+            : orders.length === 0 ? <MessageBox variant="danger">No Orders Exist. </MessageBox> :
+            <>
                 <table className="table">
                     <thead>
                         <tr>
@@ -57,7 +62,8 @@ export default function OrderHistoryScreen(props) {
                         ))}
                     </tbody>
                 </table>
-            )}
+            </>
+            }
         </div>
     );
 }

@@ -16,7 +16,9 @@ export default function OrderScreen(props) {
     
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
-
+    if (!userInfo) {
+    props.history.push("/signin");
+    }
     const orderPay = useSelector(state => state.orderPay);
     const { loading: loadingPay, error: errorPay, success: successPay} = orderPay;
 
@@ -53,7 +55,7 @@ export default function OrderScreen(props) {
                 }
             }            
         }
-    }, [dispatch, order, orderId, sdk]);
+    }, [dispatch, order, orderId, sdk ]);
 
     const successPaymentHandler = (paymentResult) => {
         alert("Transaction completed by " + paymentResult);
