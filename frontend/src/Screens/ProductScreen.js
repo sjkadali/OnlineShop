@@ -126,7 +126,7 @@ function ProductScreen(props) {
                             <div>Qty</div>
                             <div>
                                 <select
-                                value={qty}
+                                value={product.qtyInStock}
                                 onChange={(e) => setQty(e.target.value)}
                                 >
                                 {[...Array(product.qtyInStock).keys()].map(
