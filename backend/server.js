@@ -47,6 +47,6 @@ app.use((err, res, next) => {
   res.status(500).send({message: err.message});
 });
 
-app.listen(5001,() => {
+app.listen(process.env.PORT ||5001,() => {
     console.log("Server started at http://localhost:5001");
 });
