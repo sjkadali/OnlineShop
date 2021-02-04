@@ -49,6 +49,6 @@ app.use((err, res, next) => {
   res.status(500).send({message: err.message});
 });
 
-app.listen(process.env.PORT ||5001,() => {
+app.listen(process.env.PORT || 5001,() => {
     console.log("Server started ");
 });
