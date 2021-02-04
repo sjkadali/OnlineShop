@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
-import { getToken, isAuth, isAdmin } from '../util';
+import { getToken, isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 

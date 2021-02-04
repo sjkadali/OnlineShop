@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute.js';
 import productRouter from './routes/productRouter.js';
 import orderRouter from './routes/orderRouter.js';
-import uploadRouter from './routes/uploadRouter';
+import uploadRouter from './routes/uploadRouter.js';
 
 dotenv.config();
 const mongodbUrl = config.MONGODB_URL;

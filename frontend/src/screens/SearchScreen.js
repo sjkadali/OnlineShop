@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import {  useDispatch, useSelector} from 'react-redux';
 import {Link, useParams } from 'react-router-dom';
-import { listProducts } from '../actions/productActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import Product from '../components/Product';
-import { prices, ratings } from '../utils';
-import Rating from '../components/Rating';
+import { listProducts } from '../actions/productActions.js';
+import LoadingBox from '../components/LoadingBox.js';
+import MessageBox from '../components/MessageBox.js';
+import Product from '../components/Product.js';
+import { prices, ratings } from '../utils.js';
+import Rating from '../components/Rating.js';
 
 export default function SearchScreen(props) {
     const { 
