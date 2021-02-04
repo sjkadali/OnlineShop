@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This project is created using React, Node, MongoDB and Express.",
   "main": "index.js",
+  "type": "module" ,
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
