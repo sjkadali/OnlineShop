@@ -38,8 +38,8 @@ app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb'); 
 });
 
-const _dirname = path.resolve();
-app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')));
   app.get('*', (req,res) => 
@@ -49,6 +49,7 @@ app.use((err, res, next) => {
   res.status(500).send({message: err.message});
 });
 
-app.listen(process.env.PORT || 5001,() => {
-    console.log("Server started ");
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Serve at http://localhost:${port}`);
 });
