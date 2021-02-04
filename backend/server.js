@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import config from './config.js';
 import path from 'path';
@@ -18,7 +19,6 @@ mongoose.connect(mongodbUrl, {
 }).catch(error => console.log(console.log(error.reason)));
 
 const app = express();
-const cors = require("cors");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
