@@ -11,7 +11,7 @@ import orderRouter from './routes/orderRouter.js';
 import uploadRouter from './routes/uploadRouter.js';
 
 dotenv.config();
-const mongodbUrl = config.MONGODB_URL;
+const mongodbUrl = config.MONGODB_URI;
 mongoose.connect(mongodbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
