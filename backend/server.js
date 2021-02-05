@@ -19,8 +19,9 @@ const connectDb = async () => {
         useUnifiedTopology: true,
         useCreateIndex: true
     });
+    console.log("MongoDB Connected...");
   } catch(error) {
-      console.log(console.log(error.reason));
+      console.log(console.log(error));
   }
 }
 const app = express();
