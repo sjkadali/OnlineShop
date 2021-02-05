@@ -11,14 +11,14 @@ import orderRouter from './routes/orderRouter.js';
 import uploadRouter from './routes/uploadRouter.js';
 
 dotenv.config();
-const mongodbUrl = config.MONGODB_URI;
-mongoose.set('bufferTimeoutMS', 5000);
+const mongodbUrl = process.env.MONGODB_URI;
+//mongoose.set('bufferTimeoutMS', 5000);
 const connectDb = async () => {
       try {
       await mongoose.connect(mongodbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useFindAndModify: false,
     });
   } catch(error) {
       console.log(console.log(error.reason));
