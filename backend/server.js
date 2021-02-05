@@ -12,8 +12,9 @@ import uploadRouter from './routes/uploadRouter.js';
 
 dotenv.config();
 const mongodbUrl = config.MONGODB_URI;
+mongoose.set('bufferTimeoutMS', 500);
 const connectDb = async () => {
-    try {
+      try {
       await mongoose.connect(mongodbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
