@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { addToCart } from '../actions/cartActions';
+import { addToCart } from '../actions/cartActions.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeFromCart } from '../actions/cartActions';
-import MessageBox from '../components/MessageBox';
+import { removeFromCart } from '../actions/cartActions.js';
+import MessageBox from '../components/MessageBox.js';
 
 export default function CartScreen(props) {
     const cart = useSelector(state => state.cart)

@@ -1,6 +1,7 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Order from '../models/OrderModel.js';
+import Product from '../models/productModel.js';
 import { isAuth, isAdmin } from '../util.js';
 
 const orderRouter = express.Router();
@@ -40,7 +41,7 @@ orderRouter.post(
                 res.status(201).send({message: 'New Order Created', order: createdOrder });
 
             } else {
-                res.status(401).send({msg: 'Order Could n0t be saved'});
+                res.status(401).send({msg: 'Order Could not be Placed'});
             }            
         }
     })
@@ -68,7 +69,14 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler( async (req, res) => {
             email_address: req.body.email_address
         };
         const updatedOrder = await order.save();
-        res.send({ message: 'Order Paid', order: updatedOrder});
+        for (const index in updatedOrder.orderItems) {
+            const item = updatedOrder.orderItems[index];
+            const product = await Product.findById(item.product);
+            product.qtyInStock -= item.qty;
+            await product.save();
+          }
+        
+        res.send({ message: 'Order Payment Successful', order: updatedOrder});
     } else {
         res.status(404).send({message: 'Order Not Found'});
     }

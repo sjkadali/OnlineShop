@@ -1,24 +1,26 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
-import config from './config';
+import config from './config.js';
 import path from 'path';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute.js';
 import productRouter from './routes/productRouter.js';
 import orderRouter from './routes/orderRouter.js';
-import uploadRouter from './routes/uploadRouter';
+import uploadRouter from './routes/uploadRouter.js';
 
 dotenv.config();
-const mongodbUrl = config.MONGODB_URL;
-mongoose.connect(mongodbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
+
+const mongoAtlasUri = config.MONGODB_URI;
+
+mongoose.connect(mongoAtlasUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
 }).catch(error => console.log(console.log(error.reason)));
 
 const app = express();
-const cors = require("cors");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -38,12 +40,18 @@ app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb'); 
 });
 
-const _dirname = path.resolve();
-app.use('/uploads', express.static(path.join(_dirname, '/uploads')));
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+if(process.env.NODE_ENV === 'production' ) {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  app.get('*', (req,res) => 
+    res.sendFile(path.join(__dirname, '/frontend/build/index.html')));
+}
 app.use((err, res, next) => {
   res.status(500).send({message: err.message});
 });
 
-app.listen(5001,() => {
-    console.log("Server started at http://localhost:5001");
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Serve at http://localhost:${port}`);
 });
